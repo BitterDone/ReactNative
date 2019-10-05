@@ -90,4 +90,4 @@ RNTester/Pods/*
 /ReactCommon/fabric/components/rncore/
 /schema-rncore.json
 
-.vscode
+/.vscode
