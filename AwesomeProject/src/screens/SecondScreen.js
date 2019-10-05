@@ -13,7 +13,7 @@ import {
   Colors,
 } from 'react-native/Libraries/NewAppScreen';
 
-export function SecondScreen({ componentId }) {
+const SecondScreen = ({ componentId }) => {
   const loadRoot = useCallback(() => {
     console.log('loadRoot');
     Navigation.popToRoot(componentId, {
@@ -52,7 +52,7 @@ export function SecondScreen({ componentId }) {
       </SafeAreaView>
     </>
   );
-}
+};
 
 // SecondScreen.passProps = () => ({
 //   passProps: {
@@ -63,7 +63,7 @@ export function SecondScreen({ componentId }) {
 SecondScreen.options = () => ({
   topBar: {
     title: {
-      text: 'Second screen title',
+      text: 'Second screen',
     },
   },
 });
@@ -106,3 +106,5 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
+
+export default SecondScreen;

@@ -1,11 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, { useCallback } from 'react';
 import {
   SafeAreaView,
@@ -32,6 +24,17 @@ export function Home({ componentId }) {
     });
   }, [componentId]);
 
+  const loadCaptureImage = useCallback(() => {
+    console.log('loadCaptureImage');
+    Navigation.push(componentId, {
+      component: {
+        name: 'CaptureImage',
+      },
+    });
+  }, [componentId]);
+
+  // onPress={testOnPress} // passes React obj
+  // onPress={() => testOnPress()} // prints default param
   const testOnPress = (msg = 'Step One onPress') => console.log(msg);
   
   return (
@@ -46,13 +49,16 @@ export function Home({ componentId }) {
             <View style={styles.sectionContainer}>
             <Text
                 style={styles.sectionTitle}
-                // onPress={testOnPress} // passes React obj
-                // onPress={() => testOnPress()} // prints default param
-                // onPress={() => loadSecondScreen()} // nope
-                onPress={loadSecondScreen} //nope
+                onPress={loadSecondScreen} // this works
               >
-                Step One
-              </Text>
+              loadSecondScreen
+            </Text>
+            <Text
+                style={styles.sectionTitle}
+                onPress={() => loadCaptureImage()} // this also works
+              >
+              loadCaptureImage
+            </Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.js</Text> to change this
                 screen and then come back to see your edits.
@@ -86,7 +92,7 @@ export function Home({ componentId }) {
 Home.options = () => ({
   topBar: {
     title: {
-      text: 'Second screen title',
+      text: 'Welcome Home',
     },
   },
 });
