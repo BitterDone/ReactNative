@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,16 +15,25 @@ import {
   Text,
   StatusBar,
 } from 'react-native';
-
+import { Navigation } from "react-native-navigation";
 import {
   Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
+export function Home({ componentId }) {
+  const loadSecondScreen = useCallback(() => {
+    console.log('loadSecondScreen');
+    Navigation.push(componentId, {
+      component: {
+        name: 'SecondScreen',
+      },
+    });
+  }, [componentId]);
+
+  const testOnPress = (msg = 'Step One onPress') => console.log(msg);
+  
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -33,44 +42,54 @@ const App: () => React$Node = () => {
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}>
           <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
+            <Text
+                style={styles.sectionTitle}
+                // onPress={testOnPress} // passes React obj
+                // onPress={() => testOnPress()} // prints default param
+                // onPress={() => loadSecondScreen()} // nope
+                onPress={loadSecondScreen} //nope
+              >
+                Step One
+              </Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.js</Text> to change this
                 screen and then come back to see your edits.
               </Text>
             </View>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
+              <Text
+                style={styles.sectionTitle}
+                // onPress={loadSecondScreen}
+                onPress={()=>testOnPress('parmPassed')}
+              >
+                  See Your Changes
+                </Text>
               <Text style={styles.sectionDescription}>
                 <ReloadInstructions />
               </Text>
             </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
           </View>
         </ScrollView>
       </SafeAreaView>
     </>
   );
-};
+}
+
+// Home.passProps = () => ({
+//   passProps: {
+//     text: 'The second screen',
+//   },
+// });
+
+Home.options = () => ({
+  topBar: {
+    title: {
+      text: 'Second screen title',
+    },
+  },
+});
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -110,5 +129,3 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
-
-export default App;
