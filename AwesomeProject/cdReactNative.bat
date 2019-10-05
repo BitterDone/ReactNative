@@ -1,3 +1,3 @@
 D:
-cd D:\Repos\PersonalGithub\ReactNative
+cd D:\Repos\PersonalGithub\ReactNative\AwesomeProject
 cls

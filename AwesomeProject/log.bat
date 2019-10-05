@@ -1,1 +1,1 @@
-react-native log-android
+start cmd /k react-native log-android
