@@ -6,7 +6,7 @@ import BasicPage from './src/screens/BasicPage';
 
 Navigation.registerComponent(`WelcomeScreen`, () => require('./src/screens/Home').Home);
 Navigation.registerComponent(`SecondScreen`, () => SecondScreen);
-Navigation.registerComponent(`CaptureImage`, () => CaptureImage);
+Navigation.registerComponent(`CaptureImage`, () => require('./src/screens/CaptureImage').CaptureImage);
 Navigation.registerComponent(`BasicPage`, () => BasicPage);
 
 Navigation.events().registerAppLaunchedListener(() => {
