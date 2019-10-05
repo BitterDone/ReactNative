@@ -54,6 +54,8 @@ const requestWritePermission = async () => {
   };
 
 export function CaptureImage({ componentId}) {
+    let camera;
+
     const loadRoot = useCallback(() => {
         console.log('loadRoot');
         Navigation.popToRoot(componentId, {
@@ -62,8 +64,16 @@ export function CaptureImage({ componentId}) {
             }
         });
     });
-    let camera;
     
+    const takePicture = async() => {
+        if (camera) {
+            const options = { quality: 0.5, base64: true };
+            const data = await camera.takePictureAsync(options)
+                .then(data => console.log(data.uri))
+                .catch(err => console.log('err', err));
+        }
+    };
+    // file:///data/user/0/com.awesomeproject/cache/Camera/e4ad21dc-323c-4af4-b711-d96e49d61dad.jpg
     return (
         <View style={styles.container}>
             <RNCamera
@@ -81,13 +91,6 @@ export function CaptureImage({ componentId}) {
     );
 }
 
-const takePicture = async() => {
-    if (this.camera) {
-      const options = { quality: 0.5, base64: true };
-      const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
-    }
-};
 
 const styles = StyleSheet.create({
     container: {
