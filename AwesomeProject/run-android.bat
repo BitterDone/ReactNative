@@ -1,2 +1,2 @@
 react-native run-android
-start cmd /k 
+rem start cmd /k 

@@ -1,0 +1,1 @@
+start cmd /k react-native log-android

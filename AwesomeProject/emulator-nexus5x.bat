@@ -1,0 +1,1 @@
+start cmd /k emulator @nexus5x
