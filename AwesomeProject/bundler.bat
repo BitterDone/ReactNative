@@ -1,1 +1,1 @@
-react-native start --port=8080
+start cmd /k react-native start --port=8081
