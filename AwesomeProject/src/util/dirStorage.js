@@ -13,5 +13,3 @@ const getDirHome = () => {
 };
 
 export const dirHome = () => getDirHome();
-
-export const dirPicutures = `${dirHome}/Pictures`;

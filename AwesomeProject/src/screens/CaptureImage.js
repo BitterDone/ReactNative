@@ -5,8 +5,7 @@ import {
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 import { dirHome } from '../util/dirStorage';
-// import RNFS from 'react-native-fs';
-const RNFS = require('react-native-fs');
+import RNFS from 'react-native-fs';
 import moment from 'moment';
 
 const CaptureImageBasic = () => (<Text>Ready for RN Camera</Text>);
@@ -59,8 +58,10 @@ const requestWritePermission = async () => {
 
 export function CaptureImage({ componentId}) {
     let camera;
+
     requestReadPermission();
     requestWritePermission();
+
     const loadRoot = useCallback(() => {
         console.log('loadRoot');
         Navigation.popToRoot(componentId, {
@@ -74,10 +75,7 @@ export function CaptureImage({ componentId}) {
         if (camera) {
             const options = { quality: 0.5, base64: true };
             const data = await camera.takePictureAsync(options)
-                .then(data =>{
-                    console.log(data.uri);
-                    saveImage(data.uri);
-                })
+                .then(data => saveImage(data.uri))
                 .catch(err => console.log('err', err));
         }
     };
@@ -87,11 +85,8 @@ export function CaptureImage({ componentId}) {
         try {
             const newImageName = `${moment().format('DDMMYY_HHmmSSS')}.jpg`;
             const newFilepath = `${dirHome()}/${newImageName}`;
-            console.log('Saving file as ', newImageName);
-            console.log('At path ', newFilepath);
-            // move and save image to new filepath
+            console.log('Save file ', newFilepath);
             const imageMoved = await moveAttachment(filePath, newFilepath);
-            // console.log('image moved', imageMoved);
         } catch (error) {
             console.log(error);
         }
@@ -99,12 +94,8 @@ export function CaptureImage({ componentId}) {
 
     const moveAttachment = async (filePath, newFilepath) => {
         return new Promise((resolve, reject) => {
-        //   console.log('mkdir dirHome then')
           RNFS.moveFile(filePath, newFilepath)
-            .then(() => {
-            //   console.log('FILE MOVED', filePath, newFilepath);
-              resolve(true);
-            })
+            .then(() => resolve(true))
             .catch(error => {
               console.log('moveFile error', error);
               reject(error);
