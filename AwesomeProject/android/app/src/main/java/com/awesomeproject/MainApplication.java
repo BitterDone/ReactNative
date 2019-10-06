@@ -16,6 +16,8 @@ import com.reactnativenavigation.react.ReactGateway;
 
 import org.reactnative.camera.RNCameraPackage;
 
+import com.rnfs.RNFSPackage;
+
 public class MainApplication extends NavigationApplication {
 
   @Override
@@ -42,6 +44,8 @@ public class MainApplication extends NavigationApplication {
       // return Arrays.<ReactPackage>asList(
         // eg. new VectorIconsPackage()
         // Add new RNCameraPackage() to the list returned by the getPackages() method. Add a comma to the previous item if there's already something there.
+        // new MainReactPackage(), // <---- add comma
+        // new RNFSPackage() // <---------- add package
       // );
       return packages;
   }
